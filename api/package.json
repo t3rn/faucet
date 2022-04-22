@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "private": true,
+  "author": "chiefbiiko",
+  "description": "simple faucet backend and static file server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "fmt": "npx prettier --no-semi --arrow-parens avoid --trailing-comma none --print-width 80 --write './{index,faucet,util}.js'"
+  },
+  "dependencies": {
+    "@polkadot/api": "8.1.1",
+    "@polkadot/util-crypto": "9.0.1",
+    "express": "4.17.3"
+  },
+  "faucet": {
+    "AMOUNT": 100000000000000,
+    "DECIMALS": 12,
+    "SS58_PREFIX": 42,
+    "PROVIDER": "ws://localhost:9933",
+    "BLACKLIST_SECONDS": 86400,
+    "PORT": 4190
+  }
+}

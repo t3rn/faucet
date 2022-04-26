@@ -1,15 +1,8 @@
 # t0rn faucet
 
-`React`+`express` powered faucet for the `t0rn` parachain on Rococo 🚿
+`React`+`express`+`nginx` powered faucet for the `t0rn` parachain on Rococo 🚿
 
-## test
+front `https://dev.net.t3rn.io/faucet`
+back `https://dev.net.t3rn.io/faucet-api`
 
-``` bash
-./test.sh
-```
-
-## run
-
-``` bash
-npm start --prefix api
-```
+test `./test.sh`

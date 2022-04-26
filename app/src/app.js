@@ -1,4 +1,3 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom"
 import Home from "./home.js"
 import Footer from "./footer.js"
 import { Box } from "rebass"
@@ -10,16 +9,10 @@ export default function App() {
     <>
       <Dots />
       <Modal />
-      <BrowserRouter>
-        <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-          </Switch>
-          <Footer />
-        </Box>
-      </BrowserRouter>
+      <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+        <Home />
+        <Footer />
+      </Box>
     </>
   )
 }

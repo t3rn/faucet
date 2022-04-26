@@ -4,7 +4,6 @@ import { Provider as StoreProvider } from "react-redux"
 import App from "./app"
 import { store } from "./redux"
 import "./index.css"
-import "three-dots/dist/three-dots.min.css"
 
 ReactDOM.render(
   <React.StrictMode>

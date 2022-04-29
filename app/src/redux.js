@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit"
-import thunk from "redux-thunk"
 import { SUBSTRATE_ADDRESS_PATTERN } from "./constants"
 
 const DUMP = "DUMP"
@@ -49,5 +48,4 @@ export const store = configureStore({
         return state
     }
   },
-  middleware: [thunk]
 })

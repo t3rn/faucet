@@ -16,6 +16,7 @@ rm -r ./api/node_modules
 scp ./api/* $user_at_machine:/home/atlas/rococo/t0rn-faucet-api/
 scp ./api/.secret.json $user_at_machine:/home/atlas/rococo/t0rn-faucet-api/.secret.json
 scp ./api.service $user_at_machine:/home/atlas/.config/systemd/user/t0rn-faucet-api.service
+ssh $user_at_machine 'systemctl --user stop t0rn-faucet-api.service'
 ssh $user_at_machine 'systemctl --user enable t0rn-faucet-api.service'
 ssh $user_at_machine 'systemctl --user start t0rn-faucet-api.service'
 ```

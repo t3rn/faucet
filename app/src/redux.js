@@ -21,17 +21,17 @@ export function fund(substrateAddress) {
     if (res.status !== 202) {
       dispatch(
         dump({
-          modalTitle: "❌ error",
-          modalText: `note that requests are rate limited to 1 per ${
+          modalTitle: "❌ Error",
+          modalText: `Note that requests are rate limited to one per ${
             parseInt(process.env.REACT_APP_BLACKLIST_SECONDS) / 3600
-          }h and ip`
+          }h.`
         })
       )
     } else {
       dispatch(
         dump({
-          modalTitle: "💎 success",
-          modalText: `just minted ${process.env.REACT_APP_AMOUNT}T0RN to ${substrateAddress}`
+          modalTitle: "💎 Success",
+          modalText: `Just transfered ${process.env.REACT_APP_AMOUNT}T0RN to ${substrateAddress}.`
         })
       )
     }
@@ -47,5 +47,5 @@ export const store = configureStore({
       default:
         return state
     }
-  },
+  }
 })

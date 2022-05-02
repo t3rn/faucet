@@ -5,15 +5,11 @@ import { dump } from "./redux"
 
 export default function Modal() {
   const dispatch = useDispatch()
-  const { modalText, modalTitle, onok } = useSelector(state => state)
-  const hasOkHandler = onok && typeof window[onok] === "function"
+  const { modalText, modalTitle } = useSelector(state => state)
   return (
     <ReactModal
       isOpen={!!modalText}
-      onRequestClose={() => {
-        if (hasOkHandler) window[onok] = null
-        dispatch(dump({ modalText: null, onok: null }))
-      }}
+      onRequestClose={() => dispatch(dump({ modalText: null }))}
       contentLabel="info overlay modal"
       appElement={document.getElementById("root")}
     >
@@ -37,37 +33,17 @@ export default function Modal() {
           <Text sx={{ fontWeight: "bold", marginBottom: "0.625em" }}>
             {modalTitle}
           </Text>
-          <Text>{modalText}</Text>
-          {hasOkHandler && (
-            <Button
-              style={{
-                color: "#000",
-                cursor: "pointer",
-                margin: "1.25em 0.625em 0 0.625em",
-                float: "left"
-              }}
-              onClick={() => {
-                if (hasOkHandler) window[onok] = null
-                dispatch(dump({ modalText: null, onok: null }))
-              }}
-            >
-              cancel
-            </Button>
-          )}
+          <Text sx={{ font: "1em Open Sans, normal", marginBottom: "0.625em" }}>
+            {modalText}
+          </Text>
           <Button
             style={{
               color: "#000",
               cursor: "pointer",
               margin: "1.25em 0.625em 0 0.625em",
-              float: hasOkHandler ? "right" : "none"
+              fontWeight: "bold"
             }}
-            onClick={() => {
-              if (hasOkHandler) {
-                window[onok]()
-                window[onok] = null
-              }
-              dispatch(dump({ modalText: null, onok: null }))
-            }}
+            onClick={() => dispatch(dump({ modalText: null }))}
           >
             ok
           </Button>

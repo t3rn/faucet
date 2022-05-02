@@ -1,8 +1,8 @@
 export const SUBSTRATE_ADDRESS_PATTERN = /^5[a-zA-Z0-9]{47}$/
 
-export const T0RN_TERMS = `Terms of Use – t0rn network
+export const T0RN_TERMS = `Terms of Use – 
 
-The t0rn network – a test net for the t3rn Circuit - and the T0RN coins are provided as a basis and playground for developers and for educational and amusement purposes only.
+The t0rn network, a test net for the t3rn Circuit, and the T0RN coins are provided as a basis and playground for developers and for educational and amusement purposes only.
 
 The t0rn faucet is provided to supply you with T0RN coins that are needed to use the t0rn network. T0RN coins do not and will never have an actual economic and/or monetary value. We reserve the right to directly deduct or add amounts from or to your disposal.
 

@@ -1,10 +1,14 @@
-# t0rn faucet
+# Faucets
 
-https://dev.net.t3rn.io/faucet
+All available faucets for t3rn test networks
+
+# t0rn (Rococo Parachain) faucet
+
+Access via https://dev.net.t3rn.io/faucet
 
 `React`+`express`+`nginx` powered faucet for the `t0rn` parachain on Rococo 🚿
 
-## Deploy
+### Deploy
 
 `nginx` rouing should have been configured manually.
 

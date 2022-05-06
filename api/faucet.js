@@ -19,9 +19,9 @@ module.exports = async function faucet(circuit, bot, req, res) {
   if (!nonce) {
     const res = await circuit.query.system.account(bot.address)
     nonce = BigInt(res.nonce.toString())
-  } else {
-    nonce = nonce + 1n
   }
+
+  nonce = nonce + 1n
 
   const hash = await circuit.tx.balances
     .transfer(to, AMOUNT)

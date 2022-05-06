@@ -4,7 +4,7 @@ https://dev.net.t3rn.io/faucet
 
 `React`+`express`+`nginx` powered faucet for the `t0rn` parachain on Rococo 🚿
 
-## Deploy
+<!-- ## Deploy
 
 `nginx` rouing should have been configured manually.
 
@@ -19,4 +19,4 @@ scp ./api.service $user_at_machine:/home/atlas/.config/systemd/user/t0rn-faucet-
 ssh $user_at_machine 'systemctl --user stop t0rn-faucet-api.service'
 ssh $user_at_machine 'systemctl --user enable t0rn-faucet-api.service'
 ssh $user_at_machine 'systemctl --user start t0rn-faucet-api.service'
-```
+``` -->

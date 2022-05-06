@@ -16,7 +16,7 @@
     "express": "4.17.3"
   },
   "faucet": {
-    "AMOUNT": 100000000000000,
+    "AMOUNT": 10000000000000,
     "DECIMALS": 12,
     "SS58_PREFIX": 42,
     "PROVIDER": "ws://localhost:9933",

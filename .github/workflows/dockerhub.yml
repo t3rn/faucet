@@ -43,3 +43,4 @@ jobs:
           docker tag $DOCKER_IMAGE_ID ghcr.io/phpengine/faucet:latest
           docker push ghcr.io/phpengine/faucet:latest
 
+

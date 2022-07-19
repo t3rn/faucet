@@ -33,9 +33,6 @@ COPY /api/* /opt/t0rn-faucet-api/
 #RUN echo "copy in api secret"
 #COPY /api/.secret.json /opt/t0rn-faucet-api/.secret.json
 
-RUN echo "copy in api service file"
-COPY ./api.service.docker /root/.config/systemd/user/t0rn-faucet-api.service
-
 RUN npm ci --prefix /opt/t0rn-faucet-api
 CMD [ "/usr/bin/npm", "start", "--prefix", "/opt/t0rn-faucet-api"]
 #CMD [ "/usr/bin/node-template", "--dev" ]

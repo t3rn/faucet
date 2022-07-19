@@ -25,3 +25,20 @@ ssh $user_at_machine 'systemctl --user disable t0rn-faucet-api.service'
 ssh $user_at_machine 'systemctl --user enable t0rn-faucet-api.service'
 ssh $user_at_machine 'systemctl --user start t0rn-faucet-api.service'
 ``` -->
+
+## Docker Build
+
+```
+docker build . -f Dockerfile -t t3rn-faucet:1.0
+docker run -p 127.0.0.1:8333:3000 t3rn-faucet:1.0
+docker exec -it $(docker ps -a | grep t3rn-faucet | awk '{ print $1 }' ) /bin/bash
+docker tag $(docker image ls | grep t3rn-faucet | head -n1 | awk '{ print $3 }' ) fantasticfables/fables-wp:latest
+docker push t3rnhub/fables-wp:latest
+
+build, tag, push in one line
+
+docker build . -f Dockerfile -t t3rn-faucet:1.0 --no-cache && \
+docker tag $(docker image ls | grep t3rn-faucet | head -n1 | awk '{ print $3 }' ) fantasticfables/fables-wp:latest && \
+docker push t3rnhub/t3rn-faucet:latest
+
+```

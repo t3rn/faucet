@@ -40,6 +40,6 @@ jobs:
       - name: Publishes the image to GHCR
         run: |
           DOCKER_IMAGE_ID=$( docker image ls | grep t3rnsubstrate | awk '{ print $3 }' )
-          docker tag $DOCKER_IMAGE_ID ghcr.io/phpengine/t3rnsubstrate:latest
-          docker push ghcr.io/phpengine/t3rnsubstrate:latest
+          docker tag $DOCKER_IMAGE_ID ghcr.io/phpengine/faucet:latest
+          docker push ghcr.io/phpengine/faucet:latest
 

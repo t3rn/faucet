@@ -23,11 +23,18 @@ module.exports = async function faucet(circuit, bot, req, res) {
 
   nonce = nonce + 1n
 
-  const hash = await circuit.tx.balances
+  log.info(`[${ip}] transferring ${AMOUNT / 10**12}T0RN to ${to} ...`)
+
+  await circuit.tx.balances
     .transfer(to, AMOUNT)
-    .signAndSend(bot, { nonce })
-
-  log.info(`[${ip}] transfer(${to},${AMOUNT}) => ${hash.toHex()}`)
-
-  res.status(202).send({ tx: hash.toHex() })
+    .signAndSend(bot, { nonce }, ({ events = [], status }) => {
+      log.info(`[${ip}] transfer status ${status}`)
+      if (events.length) {
+        events.forEach(e => log.info(`[${ip}] event ${JSON.stringify(e)}`))
+      }
+      if (status.isInBlock) {
+        log.info(`[${ip}] in block#${status.asInBlock.toHex()}`)
+        res.status(202).send({ blockHash: status.asInBlock.toHex() })
+      }
+    })
 }

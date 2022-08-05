@@ -28,10 +28,11 @@ export function fund(substrateAddress) {
         })
       )
     } else {
+      const blockHash = await res.json().then(({ blockHash }) => blockHash)
       dispatch(
         dump({
           modalTitle: "💎 Success",
-          modalText: `Just transfered ${process.env.REACT_APP_AMOUNT}T0RN to ${substrateAddress}.`
+          modalText: `Just transfered ${process.env.REACT_APP_AMOUNT}T0RN to ${substrateAddress} in t0rn block ${blockHash}.`
         })
       )
     }

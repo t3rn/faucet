@@ -5,8 +5,6 @@ const {
 
 const tmpBlacklist = new TmpBlacklist()
 
-let nonce
-
 module.exports = async function faucet(circuit, bot, req, res) {
   const ip = (req.headers["x-real-ip"] || req.ip).split(":").pop()
   const to = req.params.to
@@ -16,12 +14,7 @@ module.exports = async function faucet(circuit, bot, req, res) {
 
   if (!isAddress(to)) return res.sendStatus(400)
 
-  if (!nonce) {
-    const res = await circuit.query.system.account(bot.address)
-    nonce = BigInt(res.nonce.toString())
-  }
-
-  nonce = nonce + 1n
+  const nonce = await circuit.rpc.system.accountNextIndex(bot.address)
 
   log.info(`[${ip}] transferring ${AMOUNT / 10**12}T0RN to ${to} ...`)
 

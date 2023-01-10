@@ -1,7 +1,6 @@
 name: Helm Deploy
 
-# on: main
-on: push
+on: main
 
 jobs:
   build-and-push-image:

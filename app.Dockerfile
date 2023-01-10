@@ -8,5 +8,8 @@ ENV PORT=3000
 WORKDIR /app
 COPY app/ .
 RUN npm install
+RUN chown -R node:node /app
+
+USER node
 
 CMD npm run start

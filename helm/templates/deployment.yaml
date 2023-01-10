@@ -54,16 +54,16 @@ spec:
             - name: http-app
               containerPort: {{ .Values.app.port }}
               protocol: TCP
-          # livenessProbe:
-          #   initialDelaySeconds: 10
-          #   httpGet:
-          #     path: /
-          #     port: http-app
-          # readinessProbe:
-          #   initialDelaySeconds: 10
-          #   httpGet:
-          #     path: /
-          #     port: http-app
+          livenessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              path: /
+              port: http-app
+          readinessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              path: /
+              port: http-app
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

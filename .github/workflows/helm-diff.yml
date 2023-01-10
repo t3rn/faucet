@@ -1,0 +1,30 @@
+name: Helm Diff
+
+on: [pull_request]
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Install package
+        run: |
+          sudo snap install helm --classic
+          sudo apt-get install -y awscli
+        
+      - name: EKS
+        run: aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name test-cluster
+
+      - name: Helm Diff
+        run: |
+          helm plugin install https://github.com/databus23/helm-diff
+          helm diff upgrade faucet helm -n t0rn-faucet -f helm/values-t0rn-faucet.yaml --set api.tag=${{ github.sha }},app.tag=${{ github.sha }}
+        

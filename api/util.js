@@ -1,6 +1,6 @@
 const { ApiPromise, WsProvider, Keyring } = require("@polkadot/api")
 const { checkAddress, cryptoWaitReady } = require("@polkadot/util-crypto")
-const BOT_MNEMONIC = process.env.BOT_MNEMONIC
+const BOT_MNEMONIC = process.env.BOT_MNEMONIC.trim()
 const {
   faucet: { SS58_PREFIX, PROVIDER, BLACKLIST_SECONDS }
 } = require("./package.json")

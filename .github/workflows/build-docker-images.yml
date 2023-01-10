@@ -29,7 +29,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . -f api.Dockerfile
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           
-      - name: Build executor
+      - name: Build app
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: test-t0rn-faucet-app

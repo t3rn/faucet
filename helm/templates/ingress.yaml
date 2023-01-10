@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "faucet.fullname" . -}}
-{{- $svcPort := .Values.app.port -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -15,16 +14,16 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-app
+  name: {{ $fullName }}
   labels:
-    {{- include "faucet.labels" . | nindent 4 }}-app
+    {{- include "faucet.labels" . | nindent 4 }}-api
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   rules:
-    - host: {{ .Values.app.host | quote }}
+    - host: {{ .Values.host | quote }}
       http:
         paths:
           {{- range .Values.ingress.paths }}
@@ -32,8 +31,8 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ $fullName }}-app
+                name: {{ .name }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ .port }}
           {{- end }}
 {{- end }}

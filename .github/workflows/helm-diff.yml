@@ -25,6 +25,6 @@ jobs:
 
       - name: Helm Diff
         run: |
-          helm plugin install https://github.com/databus23/helm-diff
+          helm plugin install https://github.com/databus23/helm-diff > /dev/null
           helm diff upgrade faucet helm -n t0rn-faucet -f helm/values-t0rn-faucet.yaml --set api.tag=${{ github.sha }},app.tag=${{ github.sha }}
         

@@ -30,6 +30,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.api.repository }}:{{ .Values.api.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.api.pullPolicy }}
+          ports:
+            - name: http-api
+              containerPort: {{ .Values.api.port }}
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -47,19 +51,19 @@ spec:
           image: "{{ .Values.app.repository }}:{{ .Values.app.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.app.pullPolicy }}
           ports:
-            - name: http
+            - name: http-app
               containerPort: {{ .Values.app.port }}
               protocol: TCP
-          livenessProbe:
-            initialDelaySeconds: 120
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            initialDelaySeconds: 120
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   initialDelaySeconds: 10
+          #   httpGet:
+          #     path: /
+          #     port: http-app
+          # readinessProbe:
+          #   initialDelaySeconds: 10
+          #   httpGet:
+          #     path: /
+          #     port: http-app
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

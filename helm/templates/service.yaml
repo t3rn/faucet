@@ -1,14 +1,30 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "faucet.fullname" . }}
+  name: {{ include "faucet.fullname" . }}-api
   labels:
     {{- include "faucet.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: {{ .Values.api.port }}
+      targetPort: http-api
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "faucet.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "faucet.fullname" . }}-app
+  labels:
+    {{- include "faucet.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.app.port }}
+      targetPort: http-app
       protocol: TCP
       name: http
   selector:

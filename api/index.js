@@ -9,7 +9,7 @@ const {
 async function main() {
   const server = express()
   const { circuit, bot } = await connect()
-  server.get("/faucet-api/:to", cors(), faucet.bind(null, circuit, bot))
+  server.get("/:to", cors(), faucet.bind(null, circuit, bot))
   server.listen(PORT, "0.0.0.0", () => log.info(`http://0.0.0.0:${PORT}`))
 }
 

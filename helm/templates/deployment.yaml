@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "faucet.fullname" . }}
+  labels:
+    {{- include "faucet.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "faucet.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "faucet.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "faucet.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: api
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.api.repository }}:{{ .Values.api.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.api.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: BOT_MNEMONIC
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.api.secret_name }}
+                  key: BOT_MNEMONIC
+                  optional: false 
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: app
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.app.repository }}:{{ .Values.app.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.app.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.app.port }}
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

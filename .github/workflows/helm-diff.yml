@@ -1,0 +1,23 @@
+name: Helm Diff
+
+on: [pull_request]
+
+jobs:
+  helm-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Diff
+        uses: bitovi/github-actions-deploy-eks-helm@v1.1.0
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS__KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+          cluster-name: test-cluster
+          config-files: helm/values-t0rn-faucet.yaml
+          chart-path: helm
+          namespace: t0rn-faucet
+          values: api.tag=${{ github.sha }},app.tag=${{ github.sha }}
+          name: t0rn-faucet
+          action: diff
+          plugins: https://github.com/databus23/helm-diff
+

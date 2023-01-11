@@ -1,6 +1,9 @@
 name: Helm Deploy
 
-on: main
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-push-image:

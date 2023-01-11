@@ -1,0 +1,66 @@
+# Default values for faucet.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+host: faucet.t0rn.io
+
+api:
+  repository: 946915630111.dkr.ecr.eu-west-1.amazonaws.com/test-t0rn-faucet-api
+  pullPolicy: IfNotPresent
+  # tag: 3a7d7b553d8778d56694d3ffed5392c0a49a97ea
+  secret_name: t0rn-faucet
+  port: 4190
+
+app:
+  repository: 946915630111.dkr.ecr.eu-west-1.amazonaws.com/test-t0rn-faucet-app
+  pullPolicy: IfNotPresent
+  # tag: 3a7d7b553d8778d56694d3ffed5392c0a49a97ea
+  port: 3000
+
+serviceAccount:
+  create: true
+
+podAnnotations: {}
+
+podSecurityContext: 
+  fsGroup: 1000
+
+securityContext: 
+  capabilities:
+    drop:
+    - ALL
+  # Node requires writing :|
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  paths:
+    - path: /faucet-api
+      pathType: Prefix
+      name: faucet-api
+      port: 4190
+    - path: /
+      pathType: Prefix
+      name: faucet-app
+      port: 3000
+
+resources: 
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 10m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

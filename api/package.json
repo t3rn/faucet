@@ -19,7 +19,7 @@
     "AMOUNT": 10000000000000,
     "DECIMALS": 12,
     "SS58_PREFIX": 42,
-    "PROVIDER": "wss://dev.net.t3rn.io",
+    "PROVIDER": "wss://ws.t0rn.io",
     "BLACKLIST_SECONDS": 86400,
     "PORT": 4190
   }

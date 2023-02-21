@@ -67,4 +67,4 @@ jobs:
         run: aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name test-cluster
 
       - name: Helm Upgrade
-        run: helm upgrade faucet helm -n t0rn-faucet -f helm/values-t0rn-faucet.yaml --set api.tag=${{ github.sha }},app.tag=${{ github.sha }}
+        run: helm upgrade faucet helm -n t0rn-faucet -f helm/values-t0rn-faucet.yaml --set api.tag=${{ github.sha }},app.tag=${{ github.sha }},api.repository=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-1.amazonaws.com/test-t0rn-faucet-api,app.repository=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-1.amazonaws.com/test-t0rn-faucet-app
